@@ -22,20 +22,34 @@ ll SequentialSearch(ll arr[],ll n,ll target){
     }
 }
 ll IterativeBinarySearch(ll arr[],ll left,ll right,ll target){
-while(left<=right){
-ll mid=ceil((left+right)/2);
-if(target==arr[mid])return mid;
-else if(target>arr[mid])left=mid+1;
-else if(target<arr[mid])right=mid-1;
-}
-return -1;
+    while(left<=right){
+        ll mid=ceil((left+right)/2);
+        if(target==arr[mid])
+            return mid;
+        else if(target>arr[mid])    
+            left=mid+1;
+        else if(target<arr[mid])
+            right=mid-1;
+    }
+    return -1;
 }
 ll RecursiveBinarySearch(ll arr[],ll left,ll right,ll target){
-if(left>right)return -1;
-ll mid=ceil((left+right)/2);
-if(target==arr[mid])return mid;
-else if(target>arr[mid])RecursiveBinarySearch(arr,mid+1,right,target);
-else if(target<arr[mid])RecursiveBinarySearch(arr,left,mid-1,target);
+    if(left>right)
+        return -1;
+    ll mid=ceil((left+right)/2);
+    if(target==arr[mid])
+        return mid;
+    else if(target>arr[mid])    
+        RecursiveBinarySearch(arr,mid+1,right,target);
+    else if(target<arr[mid])
+        RecursiveBinarySearch(arr,left,mid-1,target);
+}
+ll recursiveSequentialSearch(ll arr[],ll n, ll target, ll i = 0){
+    if(i>=n)
+        return -1;
+    if(arr[i]==target)
+        return i;
+    return recursiveSequentialSearch(arr,n,target,i+1);
 }
 int main()
 {
@@ -63,18 +77,28 @@ int main()
             cout<<"Target is found in index: "<<index<<"\n";
     break;
 case 2:
+    sort(arr,arr+10);
+    index=recursiveSequentialSearch(arr,10,target);
+    if(index==-1)
+        cout<<"Target is not found\n";
+    else 
+        cout<<"Target is found in index: "<<index<<"\n";
     break;
 case 3:
     sort(arr,arr+10);
     index=IterativeBinarySearch(arr,0,10,target);
-    if(index==-1)cout<<"Target is not found\n";
-    else cout<<"Target is found in index: "<<index<<"\n";
+    if(index==-1)   
+        cout<<"Target is not found\n";
+    else 
+        cout<<"Target is found in index: "<<index<<"\n";
     break;
 case 4:
     sort(arr,arr+10);
     index=RecursiveBinarySearch(arr,0,10,target);
-    if(index==-1)cout<<"Target is not found\n";
-    else cout<<"Target is found in index: "<<index<<"\n";
+    if(index==-1)
+        cout<<"Target is not found\n";
+    else    
+        cout<<"Target is found in index: "<<index<<"\n";
     break;
     default:
             cout << "Invalid choice\n";
