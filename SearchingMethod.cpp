@@ -1,4 +1,12 @@
-#include<bits/stdc++.h>
+#include<iostream>
+#include<vector>
+#include<unordered_map>
+#include <algorithm>
+#include<set>
+#include<queue>
+#include<stack>
+#include<string>
+#include<cstring>
 # define ll long long
 using namespace std;
 ll SequentialSearch(ll arr[],ll n,ll target){
@@ -31,32 +39,40 @@ else if(target<arr[mid])RecursiveBinarySearch(arr,left,mid-1,target);
 }
 int main()
 {
-    ll n;cin>>n;
-    ll arr[n];
-    for(int i=0;i<n;i++)cin>>arr[i];
+    cout<<"enter an array of size 10\n";
+    ll arr[10];
+    for(int i=0;i<10;i++)
+        cin>>arr[i];
     ll target;cin>>target;
     char rechoice;
     do{
-    cout<<"Enter type of search:\n 1-Sequential Search \n 2-Recursive Sequential Search \n 3-Binary Search \n 4-Recursive Binary Search\n";
-    int choice;cin>>choice;
+    cout<<"Enter type of search:\n "
+        <<"1-Sequential Search \n"
+        <<"2-Recursive Sequential Search \n"
+        <<"3-Binary Search \n "
+        <<"4-Recursive Binary Search\n";
+    int choice;
+    cin>>choice;
     ll index;
     switch(choice){
-case 1:
-    index=SequentialSearch(arr,n,target);
-    if(index==-1)cout<<"Target is not found\n";
-    else cout<<"Target is found in index: "<<index<<"\n";
+    case 1:
+        index=SequentialSearch(arr,10,target);
+        if(index==-1)
+            cout<<"Target is not found\n";
+        else
+            cout<<"Target is found in index: "<<index<<"\n";
     break;
 case 2:
     break;
 case 3:
-    sort(arr,arr+n);
-    index=IterativeBinarySearch(arr,0,n,target);
+    sort(arr,arr+10);
+    index=IterativeBinarySearch(arr,0,10,target);
     if(index==-1)cout<<"Target is not found\n";
     else cout<<"Target is found in index: "<<index<<"\n";
     break;
 case 4:
-    sort(arr,arr+n);
-    index=RecursiveBinarySearch(arr,0,n,target);
+    sort(arr,arr+10);
+    index=RecursiveBinarySearch(arr,0,10,target);
     if(index==-1)cout<<"Target is not found\n";
     else cout<<"Target is found in index: "<<index<<"\n";
     break;
@@ -66,6 +82,7 @@ case 4:
     }
     cout<<"If you want to return Search function press y"<<"\n";
     cin>>rechoice;
-    }while(rechoice=='y');
+    }
+    while(rechoice=='y');
     return 0;
 }
