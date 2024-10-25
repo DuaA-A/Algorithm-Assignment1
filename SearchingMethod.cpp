@@ -51,8 +51,7 @@ ll recursiveSequentialSearch(ll arr[],ll n, ll target, ll i = 0){
         return i;
     return recursiveSequentialSearch(arr,n,target,i+1);
 }
-int main()
-{
+int main(){
     cout<<"enter an array of size 10\n";
     ll arr[10];
     for(int i=0;i<10;i++)
