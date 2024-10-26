@@ -7,6 +7,7 @@
 #include<stack>
 #include<string>
 #include<cstring>
+#include<cmath>
 # define ll long long
 using namespace std;
 ll SequentialSearch(ll arr[],ll n,ll target){
@@ -26,7 +27,7 @@ ll IterativeBinarySearch(ll arr[],ll left,ll right,ll target){
         ll mid=ceil((left+right)/2);
         if(target==arr[mid])
             return mid;
-        else if(target>arr[mid])    
+        else if(target>arr[mid])
             left=mid+1;
         else if(target<arr[mid])
             right=mid-1;
@@ -39,7 +40,7 @@ ll RecursiveBinarySearch(ll arr[],ll left,ll right,ll target){
     ll mid=ceil((left+right)/2);
     if(target==arr[mid])
         return mid;
-    else if(target>arr[mid])    
+    else if(target>arr[mid])
         RecursiveBinarySearch(arr,mid+1,right,target);
     else if(target<arr[mid])
         RecursiveBinarySearch(arr,left,mid-1,target);
@@ -80,15 +81,15 @@ case 2:
     index=recursiveSequentialSearch(arr,10,target);
     if(index==-1)
         cout<<"Target is not found\n";
-    else 
+    else
         cout<<"Target is found in index: "<<index<<"\n";
     break;
 case 3:
     sort(arr,arr+10);
     index=IterativeBinarySearch(arr,0,10,target);
-    if(index==-1)   
+    if(index==-1)
         cout<<"Target is not found\n";
-    else 
+    else
         cout<<"Target is found in index: "<<index<<"\n";
     break;
 case 4:
@@ -96,7 +97,7 @@ case 4:
     index=RecursiveBinarySearch(arr,0,10,target);
     if(index==-1)
         cout<<"Target is not found\n";
-    else    
+    else
         cout<<"Target is found in index: "<<index<<"\n";
     break;
     default:
