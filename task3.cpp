@@ -128,8 +128,9 @@ int main(){
     Heap heap(arr);
 
     cout << "Original array: ";
-    for (int val : arr) {
+    for (auto val : arr) {
         cout << val << " ";
+        
     }
     cout << endl;
 
