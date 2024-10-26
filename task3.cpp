@@ -40,6 +40,9 @@ public:
     Heap(const vector<int>& arr) : heap(arr) {
         buildMaxHeap();
     }
+    Heap(){
+        heap.clear();
+    }
 
     void insert(int value) {
         heap.push_back(value);
@@ -62,9 +65,12 @@ public:
         auto minIt = min_element(heap.begin(), heap.end());
         return *minIt;
     }
+    bool isEmpty(){
+        return heap.empty();
+    }
 
 
-//-------------2.Implement a Heap sort----------
+//-------------3.Implement a Heap sort----------
 
      void buildMaxHeap() {
         for (int i = (heap.size() / 2) - 1; i >= 0; --i) {
@@ -89,9 +95,10 @@ public:
         cout << endl;
     }
 };
+
 //-------------2.Implement a Priority Queue---------
 class PriorityQueue{
-    MaxHeap maxHeap;
+    Heap maxHeap;
 public:
     void insert(int element){
         maxHeap.insert(element);
@@ -103,8 +110,6 @@ public:
     return maxHeap.isEmpty();
     }
 };
-//-------------Main---------
-
 
 int main(){
     PriorityQueue pq;
