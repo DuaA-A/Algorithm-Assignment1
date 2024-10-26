@@ -39,6 +39,22 @@ int FibonacciMatrixMaltiplication(int n) {
     return res[0][0];
 }
 
+
+int DP_Fibonacci(int n) {
+    if (n <= 0) return 0;
+    if (n == 1) return 1;
+
+    vector<int> fib(n + 1);
+    fib[0] = 0;
+    fib[1] = 1;
+
+    for (int i = 2; i <= n; ++i) {
+        fib[i] = fib[i - 1] + fib[i - 2];
+    }
+
+    return fib[n];
+}
+
 int main()
 {
     int n;
@@ -48,13 +64,18 @@ int main()
     do{
     cout<<"choose the way you want to implement with\n"
         <<"1. Recursion\n"
-        <<"2. Matrix Exponentiation\n";
+        <<"2. Matrix Exponentiation\n"
+        <<"3. with DP\n";
+
     int choice;
     cin>>choice;
     if(choice==1)
            cout<< "The Fibonacci number of "<<n<<"th is: " << FibonacciRecursion(n)<< "\n";
     else if(choice==2){
             cout<< "The Fibonacci number of "<<n<<"th is: " << FibonacciMatrixMaltiplication(n) << "\n";
+    }
+    else if(choice==3){
+            cout<< "The Fibonacci number of "<<n<<"th is: " << DP_Fibonacci(n) << "\n";
     }
     cout<<"If you want to rechoice Again press :(y/n)\n";
     cin>>tryAgain;
