@@ -40,7 +40,7 @@ public:
     Heap(const vector<int>& arr) : heap(arr) {
         buildMaxHeap();
     }
-    Heap(){
+    Heap() {
         heap.clear();
     }
 
@@ -54,7 +54,13 @@ public:
             throw out_of_range("Heap is empty");
         }
 
-        return heap[0];
+        int maxValue = heap[0];
+        heap[0] = heap.back();  
+        heap.pop_back();         
+        if (!heap.empty()) {
+            heapifyDown(0, heap.size());
+        }
+        return maxValue;
     }
 
     int extractMin() {
@@ -65,19 +71,19 @@ public:
         auto minIt = min_element(heap.begin(), heap.end());
         return *minIt;
     }
-    bool isEmpty(){
+
+    bool isEmpty() {
         return heap.empty();
     }
 
-
-//-------------3.Implement a Heap sort----------
-
-     void buildMaxHeap() {
+    //-----------build a maxHeap from the current elements
+    void buildMaxHeap() {
         for (int i = (heap.size() / 2) - 1; i >= 0; --i) {
             heapifyDown(i, heap.size());
         }
     }
 
+//-------------3.Implement a Heap sort----------
     void heapSort() {
         int originalSize = heap.size();
         buildMaxHeap();
@@ -97,21 +103,23 @@ public:
 };
 
 //-------------2.Implement a Priority Queue---------
-class PriorityQueue{
+class PriorityQueue {
     Heap maxHeap;
 public:
-    void insert(int element){
+    void insert(int element) {
         maxHeap.insert(element);
     }
-    int extractMaxPriority(){
+
+    int extractMaxPriority() {
         return maxHeap.extractMax();
     }
-    bool isEmpty(){
-    return maxHeap.isEmpty();
+
+    bool isEmpty() {
+        return maxHeap.isEmpty();
     }
 };
 
-int main(){
+int main() {
     PriorityQueue pq;
     pq.insert(10);
     pq.insert(20);
@@ -119,10 +127,9 @@ int main(){
 
     cout << "Elements in order of priority:\n";
     while (!pq.isEmpty()) {
-        cout<<pq.extractMaxPriority()<<" ";
+        cout << pq.extractMaxPriority() << " ";
     }
-    cout<<endl;
-
+    cout << endl;
 
     vector<int> arr = {10, 20, 5, 7, 30, 15, 1};
     Heap heap(arr);
@@ -130,7 +137,6 @@ int main(){
     cout << "Original array: ";
     for (auto val : arr) {
         cout << val << " ";
-        
     }
     cout << endl;
 
@@ -138,7 +144,6 @@ int main(){
 
     cout << "Sorted array: ";
     heap.displayHeap();
-
 
     cout << "\nTesting insertions:\n";
     heap.insert(25);
@@ -151,7 +156,6 @@ int main(){
     cout << "\nTesting extractMax and extractMin:\n";
     cout << "Max element extracted: " << heap.extractMax() << endl;
     cout << "Min element extracted: " << heap.extractMin() << endl;
-    
 
     return 0;
 }
