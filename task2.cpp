@@ -11,20 +11,17 @@
 # define ll long long
 using namespace std;
 ll SequentialSearch(ll arr[],ll n,ll target){
-    bool ok=0;
     for(int i=0;i<n;i++){
         if(arr[i]==target){
-            ok=1;
             return i;
         }
     }
-    if(!ok){
-        return -1;
-    }
+
+    return -1;
 }
 ll IterativeBinarySearch(ll arr[],ll left,ll right,ll target){
     while(left<=right){
-        ll mid=ceil((left+right)/2);
+        ll mid=left + (right - left) / 2;
         if(target==arr[mid])
             return mid;
         else if(target>arr[mid])
@@ -37,13 +34,13 @@ ll IterativeBinarySearch(ll arr[],ll left,ll right,ll target){
 ll RecursiveBinarySearch(ll arr[],ll left,ll right,ll target){
     if(left>right)
         return -1;
-    ll mid=ceil((left+right)/2);
+    ll mid= left+(right-left)/2;
     if(target==arr[mid])
         return mid;
     else if(target>arr[mid])
-        RecursiveBinarySearch(arr,mid+1,right,target);
+        return RecursiveBinarySearch(arr,mid+1,right,target);
     else if(target<arr[mid])
-        RecursiveBinarySearch(arr,left,mid-1,target);
+        return RecursiveBinarySearch(arr,left,mid-1,target);
 }
 ll recursiveSequentialSearch(ll arr[],ll n, ll target, ll i = 0){
     if(i>=n)
