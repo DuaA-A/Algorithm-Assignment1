@@ -171,7 +171,7 @@ public:
 
 class MultiplicationMethod : public HashTableForMethods {
 private:
-    const double A = 0.6180339887; // Constant for multiplication method
+    const double A = 0.6180339887; 
 public:
     MultiplicationMethod(int tableSize) : HashTableForMethods(tableSize) {}
     int hashFunction(int key) const override {
@@ -249,7 +249,7 @@ int main() {
         cout << "4. Folding Method\n";
         cout << "0. Exit\n";
         cin >> choice;
-        if (choice == 4) break;
+        if (choice == 0) break;
 
         HashTableForMethods* hashTableMethod = nullptr;
         switch (choice) {
