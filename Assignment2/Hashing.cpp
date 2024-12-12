@@ -283,11 +283,11 @@ public:
 };
 
 int main() {
-    int tableSize, choice = 0, resolutionChoice = 0, n, key;
+    int tableSize, choice=0, resolutionChoice=0, n, key;
     char delChoice;
     string foldingType;
-    cout << "Enter table size: ";
-    cin >> tableSize;
+    cout<<"enter table size: ";
+    cin>>tableSize;
 
     while (choice != 4) {
         cout << "\nChoose a hashing method to test:\n";
@@ -299,46 +299,46 @@ int main() {
         cin >> choice;
         if (choice == 0) break;
 
-        HashTableForMethods* hashTableMethod = nullptr;
+        HashTableForMethods* hashTableMethod= nullptr;
         switch (choice) {
             case 1:
-                hashTableMethod = new DivisionMethod(tableSize);
+                hashTableMethod=new DivisionMethod(tableSize);
                 break;
             case 2:
-                hashTableMethod = new MultiplicationMethod(tableSize);
+                hashTableMethod=new MultiplicationMethod(tableSize);
                 break;
             case 3:
-                hashTableMethod = new MidSquareMethod(tableSize);
+                hashTableMethod=new MidSquareMethod(tableSize);
                 break;
             case 4:
-                cout << "Choose Folding Method Type (boundary/shifting): ";
-                cin >> foldingType;
-                hashTableMethod = new FoldingMethod(tableSize,foldingType);
+                cout<<"Choose Folding Method Type (boundary/shifting): ";
+                cin>>foldingType;
+                hashTableMethod=new FoldingMethod(tableSize,foldingType);
                 break;
             default:
                 cout << "Invalid choice!\n";
                 continue;
         }
-        cout << "Enter the number of keys to insert: ";
-        cin >> n;
+        cout<<"enter the number of keys to insert: ";
+        cin>>n;
         while(n--) {
-            cout << "Enter key: ";
-            cin >> key;
+            cout<<"enter key: ";
+            cin>>key;
             hashTableMethod->insert(key);
         }
         hashTableMethod->display();
         delete hashTableMethod;
     }
 
-    while (resolutionChoice != 5) {
-        cout << "\nChoose collision resolution method:\n";
-        cout << "1. Separate Chaining\n";
-        cout << "2. Linear Probing\n";
-        cout << "3. Double Hashing\n";
-        cout << "4. Quadratic Probing\n";
-        cout << "5. Exit\n";
-        cin >> resolutionChoice;
-        if (resolutionChoice == 5) break;
+    while (resolutionChoice!=5) {
+        cout<<"\nChoose collision resolution method:\n";
+        cout<<"0. Exit\n";
+        cout<<"1. Separate Chaining\n";
+        cout<<"2. Linear Probing\n";
+        cout<<"3. Double Hashing\n";
+        cout<<"4. Quadratic Probing\n";
+        cin>>resolutionChoice;
+        if (resolutionChoice==0) break;
 
         HashTable* hashTable = nullptr;
         switch (resolutionChoice) {
@@ -348,33 +348,32 @@ int main() {
             case 2:
                 hashTable = new LinearProbing(tableSize);
                 break;
-            case 3: {
+            case 3: 
                 int prime;
-                cout << "Enter a prime number for Double Hashing: ";
-                cin >> prime;
-                hashTable = new DoubleHashing(tableSize, prime);
+                cout<<"enter a prime number for Double Hashing: ";
+                cin>>prime;
+                hashTable=new DoubleHashing(tableSize, prime);
                 break;
-            }
             case 4:
-                hashTable = new QuadraticProbing(tableSize);
+                hashTable=new QuadraticProbing(tableSize);
                 break;
             default:
-                cout << "Invalid choice!\n";
+                cout<<"invalid choice!\n";
                 continue;
         }
-        cout << "Enter the number of keys to insert: ";
-        cin >> n;
+        cout<<"enter the number of keys to insert: ";
+        cin>>n;
         while(n--) {
-            cout << "Enter key: ";
-            cin >> key;
+            cout<<"enter key: ";
+            cin>>key;
             hashTable->insert(key);
         }
         hashTable->display();
         cout << "Do you want to delete a key? (y/n): ";
         cin >> delChoice;
-        if (delChoice == 'y' || delChoice == 'Y') {
-            cout << "Enter key to delete: ";
-            cin >> key;
+        if (delChoice=='y'||delChoice=='Y') {
+            cout<<"enter key to delete: ";
+            cin>>key;
             hashTable->remove(key);
             hashTable->display();
         }
