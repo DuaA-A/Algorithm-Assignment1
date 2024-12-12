@@ -210,11 +210,14 @@ int main() {
     game.addPlayer(3, 70);
     game.addPlayer(4, 70);
     game.addPlayer(5, 60);
+    game.addPlayer(7, 10);
+    game.addPlayer(6, 60);
+    game.addPlayer(9, 160);
 
     game.getTopPlayers(3);
 
     game.updatePlayerScore(2, 80);
-    game.updatePlayerScore(4, 100);
+    game.updatePlayerScore(5, 100);
 
     game.getTopPlayers(5);
 
