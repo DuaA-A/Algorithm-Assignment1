@@ -189,5 +189,25 @@ int main() {
     game.deletePlayer(1);
     game.getTopPlayers(3);
 
+
+//-----------------------
+SkipList<int> skipList(5, 0.5);
+
+    skipList.insert(3);
+    skipList.insert(6);
+    skipList.insert(7);
+    skipList.insert(9);
+    skipList.insert(12);
+    skipList.insert(19);
+
+    cout << "Skip List after insertion:" << endl;
+    skipList.getAllValues();
+
+    cout << "\nSearching for 6: " << (skipList.search(6) ? "Found" : "Not Found") << endl;
+    cout << "Searching for 15: " << (skipList.search(15) ? "Found" : "Not Found") << endl;
+
+    skipList.remove(6);
+    cout << "\nSkip List after deleting 6:" << endl;
+    skipList.getAllValues();
     return 0;
 }
