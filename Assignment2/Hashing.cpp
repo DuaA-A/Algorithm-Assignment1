@@ -12,6 +12,7 @@ protected:
 public:
     HashTable(int tableSize) : size(tableSize) {}
     virtual void insert(int key) = 0; 
+    virtual void remove(int key) = 0;
     virtual void display() const = 0;
     virtual ~HashTable() = default; 
 };
@@ -25,6 +26,11 @@ public:
     void insert(int key) override {
         int hashValue = key % size;
         table[hashValue].push_back(key);
+    }
+
+    void remove(int key) override {
+        int hashValue = key % size;
+        table[hashValue].remove(key);
     }
 
     void display() const override {
@@ -49,6 +55,18 @@ public:
         int i = 0;
         while (table[(hashValue + i) % size] != -1) i++; 
         table[(hashValue + i) % size] = key;
+    }
+
+    void remove(int key) override {
+        int hashValue = key % size;
+        int i = 0;
+        while (table[(hashValue + i) % size] != -1) {
+            if (table[(hashValue + i) % size] == key) {
+                table[(hashValue + i) % size] = -1;
+                return;
+            }
+            i++;
+        }
     }
 
     // bool search(int key) const {
@@ -84,6 +102,18 @@ public:
         int i = 0;
         while (table[(hashValue + i * i) % size] != -1) i++;
         table[(hashValue + i * i) % size] = key;
+    }
+
+    void remove(int key) override {
+        int hashValue = key % size;
+        int i = 0;
+        while (table[(hashValue + i * i) % size] != -1) {
+            if (table[(hashValue + i * i) % size] == key) {
+                table[(hashValue + i * i) % size] = -1;
+                return;
+            }
+            i++;
+        }
     }
 
     // bool search(int key) const {
@@ -127,6 +157,18 @@ public:
         table[(hashValue + i * secondHash(key)) % size] = key;
     }
 
+    void remove(int key) override {
+        int hashValue = key % size;
+        int i = 0;
+        while (table[(hashValue + i * secondHash(key)) % size] != -1) {
+        if (table[(hashValue + i * secondHash(key)) % size] == key) {
+            table[(hashValue + i * secondHash(key)) % size] = -1;
+            return;
+        }
+        i++;
+        }
+    }
+
     void display() const override {
         cout << "Double Hashing Table:\n";
         for (int i = 0; i < size; i++) 
@@ -148,6 +190,11 @@ public:
     virtual void insert(int key) {
         int hashValue = hashFunction(key);
         table[hashValue] = key; 
+    }
+    virtual void remove(int key) { 
+        int hashValue = hashFunction(key); 
+        if (table[hashValue] == key) 
+        table[hashValue] = -1; 
     }
     virtual void display() const {
         cout << "Hash Table for Method Testing:\n";
@@ -237,6 +284,7 @@ public:
 
 int main() {
     int tableSize, choice = 0, resolutionChoice = 0, n, key;
+    char delChoice;
     string foldingType;
     cout << "Enter table size: ";
     cin >> tableSize;
@@ -322,6 +370,14 @@ int main() {
             hashTable->insert(key);
         }
         hashTable->display();
+        cout << "Do you want to delete a key? (y/n): ";
+        cin >> delChoice;
+        if (delChoice == 'y' || delChoice == 'Y') {
+            cout << "Enter key to delete: ";
+            cin >> key;
+            hashTable->remove(key);
+            hashTable->display();
+        }
         delete hashTable;
     }
 
