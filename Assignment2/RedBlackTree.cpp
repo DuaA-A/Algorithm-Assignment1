@@ -346,59 +346,26 @@ public:
 
 int main() {
     RBTree rbt;
-    cout << "Red-Black Tree Operations\n";
-    cout << "1. Insert\n";
-    cout << "2. Search\n";
-    cout << "3. Delete\n";
-    cout << "4. Inorder Traversal\n";
-    cout << "5. Print Tree\n";
-    cout << "6. Exit\n";
-
-    while (true) {
-        cout << "\nChoose an operation: ";
-        int choice, value;
-        cin >> choice;
-
-        switch (choice) {
-        case 1:
-            cout << "Enter value to insert: ";
-            cin >> value;
-            rbt.insert(value);
-            cout << "Inserted " << value << " into the tree.\n";
-            break;
-
-        case 2:
-            cout << "Enter value to search: ";
-            cin >> value;
-            rbt.search(value);
-            break;
-
-        case 3:
-            cout << "Enter value to delete: ";
-            cin >> value;
-            rbt.deleteKey(value);
-            cout << "Deleted " << value << " from the tree (if present).\n";
-            break;
-
-        case 4:
-            cout << "Inorder traversal of the tree:\n";
-            rbt.inorder();
-            cout << "\n";
-            break;
-
-        case 5:
-            cout << "Tree structure:\n";
-            rbt.displayTree(rbt.getRoot());
-            break;
-
-        case 6:
-            cout << "Exiting program.\n";
-            return 0;
-
-        default:
-            cout << "Invalid choice. Please try again.\n";
-        }
-    }
-
+    cout << "Red-Black Tree Demonstration\n";
+    cout << "Inserting values: 10, 20, 30, 40, 50\n";
+    rbt.insert(10);
+    rbt.insert(20);
+    rbt.insert(30);
+    rbt.insert(40);
+    rbt.insert(50);
+    cout << "Tree structure after insertions:\n";
+    rbt.displayTree(rbt.getRoot());
+    cout << "\nSearching for 30:\n";
+    rbt.search(30);
+    cout << "\nSearching for 60 (not present):\n";
+    rbt.search(60);
+    cout << "\nDeleting value 20:\n";
+    rbt.deleteKey(20);
+    cout << "Tree structure after deletion:\n";
+    rbt.displayTree(rbt.getRoot());
+    cout << "\nInorder traversal of the final tree:\n";
+    rbt.inorder();
+    cout << "\n";
+    cout << "\nEnd of demonstration.\n";
     return 0;
 }
