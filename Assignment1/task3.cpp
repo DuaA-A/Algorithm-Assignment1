@@ -1,17 +1,19 @@
 #include <iostream>
 #include <vector>
-#include <algorithm>
+#include <functional>
 #include <stdexcept>
+#include <climits>
 
 using namespace std;
-
+template <typename T, typename Compare = greater<T>>
 class Heap {
 private:
-    vector<int> heap;
+    vector<T> heap;
+    Compare comp; // to make the heap act like a max heap
 
     void heapifyUp(int index) {
         int parentIndex = (index - 1) / 2;
-        while (index > 0 && heap[index] > heap[parentIndex]) {
+        while (index > 0 && comp(heap[index], heap[parentIndex])) {
             swap(heap[index], heap[parentIndex]);
             index = parentIndex;
             parentIndex = (index - 1) / 2;
@@ -22,13 +24,11 @@ private:
         int largest = index;
         int leftChild = 2 * index + 1;
         int rightChild = 2 * index + 2;
-
-        if (leftChild < size && heap[leftChild] > heap[largest]) {
+        if (leftChild < size && comp(heap[leftChild], heap[largest])) 
             largest = leftChild;
-        }
-        if (rightChild < size && heap[rightChild] > heap[largest]) {
+
+        if (rightChild < size && comp(heap[rightChild], heap[largest])) 
             largest = rightChild;
-        }
 
         if (largest != index) {
             swap(heap[index], heap[largest]);
@@ -37,46 +37,34 @@ private:
     }
 
 public:
-    Heap(const vector<int>& arr) : heap(arr) {
-        buildMaxHeap();
-    }
     Heap() {
         heap.clear();
     }
 
-    void insert(int value) {
+    Heap(const vector<T>& arr) : heap(arr) {
+        buildMaxHeap();
+    }
+
+    void insert(const T& value) {
         heap.push_back(value);
         heapifyUp(heap.size() - 1);
     }
 
-    int extractMax() {
-        if (heap.empty()) {
-            throw out_of_range("Heap is empty");
-        }
-
-        int maxValue = heap[0];
-        heap[0] = heap.back();  
-        heap.pop_back();         
-        if (!heap.empty()) {
+    T extractTop() {
+        if (heap.empty())
+            throw runtime_error("Error: empty heap");
+        T topValue = heap[0];
+        heap[0] = heap.back();
+        heap.pop_back();
+        if (!heap.empty())
             heapifyDown(0, heap.size());
-        }
-        return maxValue;
+        return topValue;
     }
 
-    int extractMin() {
-        if (heap.empty()) {
-            throw out_of_range("Heap is empty");
-        }
-
-        auto minIt = min_element(heap.begin(), heap.end());
-        return *minIt;
-    }
-
-    bool isEmpty() {
+    bool isEmpty() const {
         return heap.empty();
     }
 
-    //-----------build a maxHeap from the current elements
     void buildMaxHeap() {
         for (int i = (heap.size() / 2) - 1; i >= 0; --i) {
             heapifyDown(i, heap.size());
@@ -85,77 +73,88 @@ public:
 
 //-------------3.Implement a Heap sort----------
     void heapSort() {
+        vector<T> temp = heap;
         int originalSize = heap.size();
         buildMaxHeap();
         for (int i = heap.size() - 1; i > 0; --i) {
             swap(heap[0], heap[i]);
             heapifyDown(0, i);
         }
-        heap.resize(originalSize);
+        heap = temp;
     }
 
-    void displayHeap() const {
-        for (int val : heap) {
-            cout << val << " ";
-        }
-        cout << endl;
+    const vector<T>& getHeap() const {
+        return heap;
     }
 };
 
 //-------------2.Implement a Priority Queue---------
 class PriorityQueue {
-    Heap maxHeap;
+private:
+    using Element = pair<int, int>; // {priority, value}
+    Heap<Element> heap;
+
 public:
-    void insert(int element) {
-        maxHeap.insert(element);
+    PriorityQueue() {}
+
+    void insert(int value, int priority) {
+        heap.insert({priority, value});
+        cout<<"inserted: Value = "<<value<<", priority = "<<priority<<endl;
     }
 
-    int extractMaxPriority() {
-        return maxHeap.extractMax();
+    pair<int, int> extractHighestPriority() {
+        if (heap.isEmpty())
+            throw runtime_error("priority queue is empty.");
+        auto top = heap.extractTop();
+        cout<<"extracted: Value = "<<top.second<<", priority = "<<top.first<<endl;
+        return top;
     }
 
-    bool isEmpty() {
-        return maxHeap.isEmpty();
+    bool isEmpty() const {
+        return heap.isEmpty();
+    }
+
+    void displayQueue() const {
+        const auto& elements = heap.getHeap();
+        for (const auto& val : elements)
+            cout<<"("<<val.first<<", "<<val.second<<") ";
+        cout<<endl;
     }
 };
 
 int main() {
     PriorityQueue pq;
-    pq.insert(10);
-    pq.insert(20);
-    pq.insert(15);
+    pq.insert(10, 1);
+    pq.insert(2, 5);
+    pq.insert(15, 3);
+    pq.displayQueue();
 
-    cout << "Elements in order of priority:\n";
+    cout << "\nExtracting elements by priority:\n";
     while (!pq.isEmpty()) {
-        cout << pq.extractMaxPriority() << " ";
+        auto extracted = pq.extractHighestPriority();
+        cout<<"value: "<<extracted.second<<", Priority: "<<extracted.first<<endl;
     }
-    cout << endl;
 
     vector<int> arr = {10, 20, 5, 7, 30, 15, 1};
-    Heap heap(arr);
+    Heap<int> heap(arr);
+    cout<<"\noriginal array: ";
+    for (auto val : arr)
+        cout<<val<<" ";
+    cout<<endl;
 
-    cout << "Original array: ";
-    for (auto val : arr) {
-        cout << val << " ";
-    }
-    cout << endl;
-
+    cout<<"\nHeap after sorting: ";
     heap.heapSort();
+    for (auto val : heap.getHeap())
+        cout<<val<<" ";
+    cout<<endl;
 
-    cout << "Sorted array: ";
-    heap.displayHeap();
-
-    cout << "\nTesting insertions:\n";
+    cout<<"\ntesting insertions:\n";
     heap.insert(25);
     heap.insert(8);
     heap.insert(40);
-
-    cout << "Heap after insertions: ";
-    heap.displayHeap();
-
-    cout << "\nTesting extractMax and extractMin:\n";
-    cout << "Max element extracted: " << heap.extractMax() << endl;
-    cout << "Min element extracted: " << heap.extractMin() << endl;
+    for (auto val : heap.getHeap())
+        cout<<val<<" ";
+    cout<<endl;
 
     return 0;
 }

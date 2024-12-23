@@ -66,44 +66,44 @@ int main(){
     cin>>choice;
     ll index;
     switch(choice){
-    case 1:
-        index=SequentialSearch(arr,10,target);
-        if(index==-1)
-            cout<<"Target is not found\n";
-        else
-            cout<<"Target is found in index: "<<index<<"\n";
-    break;
-case 2:
-    sort(arr,arr+10);
-    index=recursiveSequentialSearch(arr,10,target);
-    if(index==-1)
-        cout<<"Target is not found\n";
-    else
-        cout<<"Target is found in index: "<<index<<"\n";
-    break;
-case 3:
-    sort(arr,arr+10);
-    index=IterativeBinarySearch(arr,0,10,target);
-    if(index==-1)
-        cout<<"Target is not found\n";
-    else
-        cout<<"Target is found in index: "<<index<<"\n";
-    break;
-case 4:
-    sort(arr,arr+10);
-    index=RecursiveBinarySearch(arr,0,10,target);
-    if(index==-1)
-        cout<<"Target is not found\n";
-    else
-        cout<<"Target is found in index: "<<index<<"\n";
-    break;
-    default:
-            cout << "Invalid choice\n";
+        case 1:
+            index=SequentialSearch(arr,10,target);
+            if(index==-1)
+                cout<<"Target is not found\n";
+            else
+                cout<<"Target is found in index: "<<index<<"\n";
+        break;
+        case 2:
+            sort(arr,arr+10);
+            index=recursiveSequentialSearch(arr,10,target);
+            if(index==-1)
+                cout<<"Target is not found\n";
+            else
+                cout<<"Target is found in index: "<<index<<"\n";
             break;
-    }
-    cout<<"If you want to return Search function press y"<<"\n";
-    cin>>rechoice;
-    }
-    while(rechoice=='y');
+        case 3:
+            sort(arr,arr+10);
+            index=IterativeBinarySearch(arr,0,10,target);
+            if(index==-1)
+                cout<<"Target is not found\n";
+            else
+                cout<<"Target is found in index: "<<index<<"\n";
+            break;
+        case 4:
+            sort(arr,arr+10);
+            index=RecursiveBinarySearch(arr,0,10,target);
+            if(index==-1)
+                cout<<"Target is not found\n";
+            else
+                cout<<"Target is found in index: "<<index<<"\n";
+            break;
+            default:
+                    cout << "Invalid choice\n";
+                    break;
+            }
+            cout<<"If you want to return Search function press y"<<"\n";
+            cin>>rechoice;
+            }
+            while(rechoice=='y');
     return 0;
 }
